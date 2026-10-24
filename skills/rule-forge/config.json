@@ -1,0 +1,38 @@
+{
+  "enabled": true,
+  "command": "claude",
+  "fallback": "opencode",
+  "commands": {
+    "opencode": [
+      "opencode",
+      "run",
+      "-m",
+      "openrouter/deepseek/deepseek-v4.1-flash",
+      "{prompt}"
+    ],
+    "claude": [
+      "claude",
+      "-p",
+      "{prompt}",
+      "--model",
+      "haiku",
+      "--no-session-persistence"
+    ],
+    "agy": [
+      "agy",
+      "--model",
+      "gemini-3.8-flash-high",
+      "--dangerously-skip-permissions",
+      "-p",
+      "{prompt}"
+    ]
+  },
+  "roots": [
+    "/data/src"
+  ],
+  "timeout_s": 900,
+  "min_user_messages": 2,
+  "max_transcript_bytes": 1000000,
+  "notify": true,
+  "compose_every": 10
+}

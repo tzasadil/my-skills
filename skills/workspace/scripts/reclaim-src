@@ -1,0 +1,83 @@
+#!/bin/sh
+# reclaim-src: give root-owned files under /data/src back to the sudo caller.
+#
+# Why: Docker bind mounts create dirs and files as root (e.g. /workspace
+# artifacts). A NOPASSWD sudoers rule for this one script lets the owner
+# and agents fix them without a password or general root.
+#
+# Safety constraints, since this runs as root on user-controlled trees:
+# - DIR is resolved with realpath before the prefix check, so a symlink
+#   like /data/src/x -> /etc is rejected.
+# - find does not follow symlinks (-P default). chown -h changes the link
+#   itself, never its target.
+# - -execdir runs chown from the containing dir, so swapping a middle path
+#   component for a symlink mid-run cannot redirect it.
+# - -xdev stops at mount points. Nested btrfs subvolumes count as separate
+#   devices, so they are skipped too.
+# - The installed copy must stay root-owned and not user-writable, else the
+#   NOPASSWD rule grants full root. --install enforces that.
+set -eu
+
+ROOT=/data/src
+BIN=/usr/local/bin/reclaim-src
+SUDOERS=/etc/sudoers.d/reclaim-src
+
+usage() {
+    cat <<EOF
+Usage:
+  sudo -n $BIN [DIR]
+      Chown root-owned files under DIR to the sudo caller.
+      DIR defaults to the current dir and must be inside $ROOT/.
+      Call by full path: the sudoers rule matches it, and sudo's
+      secure_path often omits /usr/local/bin.
+
+  sudo $0 --install
+      One-time setup: copy this script to $BIN and add a NOPASSWD
+      sudoers rule for the calling user.
+EOF
+}
+
+die() {
+    echo "reclaim-src: $*" >&2
+    exit 1
+}
+
+# Copy the script root-owned and add the sudoers rule. The rule is checked
+# with visudo before install => a bad rule never locks sudo out.
+install_self() {
+    user=${SUDO_USER:-}
+    if [ -z "$user" ] || [ "$user" = root ]; then
+        die "run as: sudo $0 --install"
+    fi
+    tmp=$(mktemp)
+    trap 'rm -f "$tmp"' EXIT
+    printf '%s ALL=(root) NOPASSWD: %s\n' "$user" "$BIN" >"$tmp"
+    visudo -cqf "$tmp" || die "generated sudoers rule failed visudo check"
+    install -o root -g root -m 0755 "$0" "$BIN"
+    # No dot in the name: sudo skips sudoers.d files containing '.'.
+    install -o root -g root -m 0440 "$tmp" "$SUDOERS"
+    echo "installed $BIN and $SUDOERS for $user"
+}
+
+# Chown every root-owned entry under DIR to SUDO_UID:SUDO_GID.
+reclaim() {
+    uid=${SUDO_UID:-}
+    gid=${SUDO_GID:-}
+    if [ -z "$uid" ] || [ -z "$gid" ] || [ "$uid" = 0 ] || [ "$gid" = 0 ]; then
+        die "run via sudo as a non-root user: sudo -n $BIN [DIR]"
+    fi
+
+    dir=$(realpath -e -- "${1:-.}") || die "no such path: ${1:-.}"
+    case "$dir" in
+        "$ROOT"/*) ;;
+        *) die "$dir is not inside $ROOT/" ;;
+    esac
+
+    find "$dir" -xdev -user 0 -execdir chown -h -- "$uid:$gid" {} +
+}
+
+case "${1:-}" in
+    -h | --help) usage ;;
+    --install) install_self ;;
+    *) reclaim "$@" ;;
+esac
