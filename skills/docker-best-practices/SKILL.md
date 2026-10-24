@@ -192,6 +192,7 @@ Project name is part of every image tag and named volume. Defaults to the basena
 - Healthchecks use tools in the image. Alpine has busybox `wget`, not `curl`: `wget -q --spider http://127.0.0.1:<port>/`. Debian `-slim` has neither: `node -e "fetch('http://127.0.0.1:<port>/').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"`.
 - Dev sync: `develop.watch` (Compose 2.22+, `sync+restart` 2.23+, `sync+exec` 2.32+) instead of bind mounts. `sync` for source, `ignore: [node_modules/]`, `rebuild` for lockfile and manifest changes. Run `docker compose watch` or `up --watch`. A non-root container needs the target writable: `COPY --chown`, else sync fails.
 - Publish only host ports humans or external systems need. Same-network services talk by service name.
+- Dev ports bind loopback: `"127.0.0.1:5432:5432"`. Bare `"5432:5432"` publishes on `0.0.0.0` and `[::]` => reachable from the LAN. Host firewall does not stop it: Docker routes published traffic before ufw, and firewalld's `docker-forwarding` policy accepts it from any zone. LAN client needs a port (phone on an Expo dev server) -> bind that port to the needed interface IP.
 
 ## Verification
 
