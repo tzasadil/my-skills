@@ -1,13 +1,13 @@
 ---
 name: handoff
-description: Compact the current conversation into a handoff document for another agent to pick up.
+description: Use when the user asks for a handoff, or to write down findings or remaining work for a later session.
 argument-hint: "What will the next session be used for?"
-disable-model-invocation: true
 ---
 
-Write a handoff so a fresh agent can continue. Save to the root of the project the session worked in.
+Write a handoff doc so a fresh agent can continue. Save to the root of the project the session worked in as `HANDOFF-<topic>.md`. Same-topic handoff exists -> update it.
 
-- Include a "suggested skills" section.
+- Focus = user arguments, else the session's open work. Tailor the doc to it.
+- Content: what the next agent cannot get from the repo. Findings with evidence (`path:line`), decisions + why, open questions, unverified assumptions.
+- No reading-order or onboarding section => repo docs and `AGENTS.md` cover orientation.
 - Do not duplicate PRDs, plans, ADRs, issues, commits, diffs. Reference by path / URL / bash command.
 - Redact secrets, passwords, PII.
-- User arguments = what the next session focuses on. Tailor the doc to that as intent.
