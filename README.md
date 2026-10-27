@@ -22,8 +22,7 @@ just check   # validate frontmatter, names, and links
 | [docker-best-practices](skills/docker-best-practices/SKILL.md) | Use when writing, reviewing, or nontrivially changing a Dockerfile, a compose.yaml service, or a GitHub Actions image build. |
 | [explaining-code](skills/explaining-code/SKILL.md) | Use when the user is confused about some code or functionality and asks for an explanation. |
 | [handoff](skills/handoff/SKILL.md) | Write a handoff doc so a fresh agent can continue the session's work. |
-| [humanizer](skills/humanizer/SKILL.md) | Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written. Based on Wikipedia's "Signs of AI writing" guide. Detects and fixes patterns including inflated symbolism, promotional language, superficial -ing analyses, vague attributions, em dash overuse, rule of three, AI vocabulary words, passive voice, negative parallelisms, filler phrases, and walls of text. |
-| [pr-preparation](skills/pr-preparation/SKILL.md) | Use when preparing to open a PR upstream, as a final scan of the diff for gaps. |
+| [humanizer](skills/humanizer/SKILL.md) | Use when the user asks to humanize text or remove signs of AI writing, or when drafting or reviewing prose that must read as human-written. |
 | [regression-guard](skills/regression-guard/SKILL.md) | Independent review of recent changes (goal fit, bugs, regressions, loose ends), then triage and fix the findings. |
 | [renaming](skills/renaming/SKILL.md) | Use when renaming identifiers across multiple files. Use only when more than 3 occurances. |
 | [resolve](skills/resolve/SKILL.md) | Use when you need to resolve jj conflicts. |
