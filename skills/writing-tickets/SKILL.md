@@ -21,6 +21,6 @@ In this order. Omit a conditional section when its condition fails.
 
 ## Style
 
-- Compact simple English. Snappy bullets.
+- Compact simple English. Snappy bullets. Use `/humanizer` skill.
 - High level: describe behavior, not implementation details.
 - No `Done when` section, no acceptance criteria. `Scope:` fulfills this role.
