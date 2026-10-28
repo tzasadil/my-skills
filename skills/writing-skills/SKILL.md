@@ -12,6 +12,7 @@ Skill = on-demand agent guidance. Judge by changed behavior + reliable invocatio
 - Compact simple english, snappy bullets. Fragments OK.
 - Use arrows: causality `=>`, flow `->`.
 - No overexplaining: model generalizes => give the idea/intent, skip scenario catalogs. Positive intent is enough. Negative rules/examples IFF observed, never prematurely.
+- A rule that makes sense on its own needs no justification. Motivation IFF the rule looks wrong or arbitrary without it.
 - Code blocks: exact code, one-line comment saying tldr what it is for. No walkthrough. Oneliners: single backticks.
 - Code examples: one complete, runnable pattern, ready to adapt. One language, agent ports. No fill-in-the-blank, no contrived scenarios.
 - **Hard rule:** every skill line follows this section. This file is the style sample, its own edits included. Observed wordy tells -> compress:
