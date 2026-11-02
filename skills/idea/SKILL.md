@@ -1,7 +1,6 @@
 ---
 name: idea
-description: Gives an honest verdict on an idea the user is unsure about.
-disable-model-invocation: true
+description: Use when the user asks for a verdict on an idea of theirs, written as `/idea` anywhere in a message or as "is this a good idea?".
 argument-hint: "The idea, in a sentence or two"
 ---
 

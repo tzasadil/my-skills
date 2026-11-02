@@ -22,7 +22,7 @@ Have opinions. Vary rhythm. Acknowledge complexity. Use "I" when it fits. Let so
 
 ## Core rules
 
-- **Form follows content.** No walls of text. Items compared on the same fields -> table. Parallel facts -> short bullets. Procedure -> numbered steps. Reasoning -> short prose. Paragraph over 3 sentences or bullet over 2 = wall -> split it.
+- **Form follows content.** No walls of text. Items compared on the same fields -> table. Parallel facts -> short bullets. Procedure -> numbered steps. Reasoning -> short prose. Paragraph over 4 sentences or bullet over 2 = wall -> split it.
 
 ## Patterns
 
@@ -76,6 +76,7 @@ Each: watch-list, then the rewrite direction.
 **Remaining tells:** too-tidy contrasts; possibly fake citations; slogan closer.
 
 **Final:**
+
 > AI coding assistants can make you faster at the boring parts. Not everything. Definitely not architecture.
 >
 > They're great at boilerplate: config files, test scaffolding, repetitive refactors. They're also great at sounding right while being wrong. I've accepted suggestions that compiled, passed lint, and still missed the point because I stopped paying attention.

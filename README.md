@@ -16,19 +16,24 @@ just check   # validate frontmatter, names, and links
 | Skill | Use |
 | --- | --- |
 | [angular-developer](skills/angular-developer/SKILL.md) | Use when generating Angular code or giving architectural guidance: projects, components, services, HTTP, reactivity (signals, linkedSignal, resource, httpResource), forms, DI, routing, SSR, accessibility (ARIA), animations, styling (component styles, Tailwind), testing, naming, or CLI tooling. |
-| [designing-agents](skills/designing-agents/SKILL.md) | Use when drafting or editing GPT prompts and tools, or designing non-chat classification, extraction, verification, or creation agents. |
+| [carve](skills/carve/SKILL.md) | Use when figuring out the next work and splitting it into waves of strands that separate sessions can build in parallel, or updating that series after a wave lands. |
+| [conduct](skills/conduct/SKILL.md) | Use when launching strands of work as parallel interactive agent sessions, or checking, merging, and shipping their waves. Not for planning the strands (see carve), one workspace (see workspace), or subagent batches (see with-implementer). |
 | [design-ui](skills/design-ui/SKILL.md) | Use when heavily restyling web components, pages, or applications. Create distinctive, production-grade interfaces with high design quality, not generic AI aesthetics. |
+| [designing-agents](skills/designing-agents/SKILL.md) | Use when drafting or editing GPT prompts and tools, or designing non-chat classification, extraction, verification, or creation agents. |
 | [diagnosing-bug](skills/diagnosing-bug/SKILL.md) | Use when tracing a bug, a pasted error log or stack trace, a failing test, broken behavior, or a performance regression, or when an earlier fix failed. |
 | [docker-best-practices](skills/docker-best-practices/SKILL.md) | Use when writing, reviewing, or nontrivially changing a Dockerfile, a compose.yaml service, or a GitHub Actions image build. |
 | [explaining-code](skills/explaining-code/SKILL.md) | Use when the user is confused about some code or functionality and asks for an explanation. |
 | [handoff](skills/handoff/SKILL.md) | Write a handoff doc so a fresh agent can continue the session's work. |
 | [humanizer](skills/humanizer/SKILL.md) | Use when the user asks to humanize text or remove signs of AI writing, or when drafting or reviewing prose that must read as human-written. |
+| [idea](skills/idea/SKILL.md) | Use when the user asks for a verdict on an idea of theirs, written as `/idea` anywhere in a message or as "is this a good idea?". |
 | [regression-guard](skills/regression-guard/SKILL.md) | Independent review of recent changes (goal fit, bugs, regressions, loose ends), then triage and fix the findings. |
 | [renaming](skills/renaming/SKILL.md) | Use when renaming identifiers across multiple files. Use only when more than 3 occurances. |
 | [resolve](skills/resolve/SKILL.md) | Use when you need to resolve jj conflicts. |
 | [retrospective](skills/retrospective/SKILL.md) | Conduct a retrospective on a coding session. |
 | [rule-forge](skills/rule-forge/SKILL.md) | Triages the repo's mined rule candidates. Applies or drops each, keeping receipts for coding standards. |
 | [security-best-practices](skills/security-best-practices/SKILL.md) | Use when the user explicitly requests security best practices guidance, a security review/report, or secure-by-default coding help. Trigger only for supported languages (python, javascript/typescript, go). Do not trigger for general code review, debugging, or non-security tasks. |
+| [splitting-epics](skills/splitting-epics/SKILL.md) | Use when breaking an epic, plan or meeting notes into GitHub issues for a human team, or listing a work queue for project management. Not for agent sessions or jj stacks (see carve, nabu-outline). |
+| [strand](skills/strand/SKILL.md) | Use when a coordinator's brief hands this session one strand of a parallel split to build in its own workspace. |
 | [teach](skills/teach/SKILL.md) | Teach the user a new skill or concept, within this workspace. |
 | [workspace](skills/workspace/SKILL.md) | Use when the user asks to create a jj workspace. |
 | [writing-skills](skills/writing-skills/SKILL.md) | Use when creating, editing, or auditing an agent skill, AGENTS.md, or another agent instruction file. |
