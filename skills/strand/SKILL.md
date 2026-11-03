@@ -5,7 +5,7 @@ description: Use when a coordinator's brief hands this session one strand of a p
 
 Build one strand of a parallel split. Other sessions build the sibling strands at the same time. The coordinator merges, finalizes, and ships the wave.
 
-Inputs from the brief: strand id and scope, workspace path, base revision, dependencies, series path. Missing input -> ask the user before you start.
+Inputs from the brief: strand id and scope, workspace path, base revision, series path. Missing input -> ask the user before you start.
 
 Done = the strand's tablet is `ready to archive`, every revision on the base is described, and the user has the report.
 

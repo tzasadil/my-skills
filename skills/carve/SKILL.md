@@ -6,7 +6,7 @@ argument-hint: "[goal or area] [max parallel sessions]"
 
 Write a series: the next work, split into waves of strands that separate agent sessions build in parallel, each in its own workspace. Save to the project root as `SERIES-<topic>.md`. Same-topic series exists -> update it: landed work leaves, Findings and the waves ahead are re-derived.
 
-The series holds only work ahead. A landed wave leaves with its strands and keeps one `Landed` line: number, merge commit, PRs. Wave numbers continue across updates: a new wave takes the next unused number.
+The series holds only work ahead. A landed wave leaves with its strands and keeps one `Landed` line: number, merge commit, PRs. Its Decisions, Hotspots and Findings leave too unless a strand ahead still needs them => the series stays readable in one pass; version control keeps the rest. Wave numbers continue across updates: a new wave takes the next unused number.
 
 Done = the user approved a series where every strand could start today in its own workspace, every goal requirement maps to a strand or a decision, and strands in one wave mostly touch different files.
 
@@ -18,7 +18,7 @@ Done = the user approved a series where every strand could start today in its ow
 
 ## Cut strands
 
-Strand = id, scope, observable outcome, likely paths, dependencies, base revision. Id: lowercase slug, `[a-z][a-z0-9_-]{0,31}` (doubles as the agent session name).
+Strand = id, scope, observable outcome, likely paths, dependencies, base revision, run mode (`session` or `batch`, rule in the conduct skill: a small change with no new route, table, migration or role and no product question is `batch`). Id: lowercase slug, `[a-z][a-z0-9_-]{0,31}` (doubles as the agent session name).
 
 - One strand = one vertical feature a session can finish and ship on its own.
 - Two or more parts a reviewer could verify alone (a table with its rules, a route group, a screen) -> split, unless they only make sense together.
@@ -38,6 +38,7 @@ Hotspot = a file several strands will likely edit. Name each with the strands th
 - Look for the same list spelled out in many places (every test building the full deps object) => each new feature edits every other strand's files, and the break shows only after the merge. Fix it in a prep strand.
 - Prep strand (wave 0): any change that turns a cross-strand edit into a one-line append in one file. Lands before the others branch.
 - Shared runtime (dev stack, database, ports, auth callback URLs): name which strands contend and the rule.
+- Global sequences (deviation IDs, migration timestamps, seed id blocks): the wave header gives each strand its own value. "Next free" on a shared base => two strands take the same one.
 
 ## Check
 
@@ -69,9 +70,9 @@ Series names roles only: implementer, reviewer. No agent, session, or person => 
 
 ## Waves
 - **Wave <n>: prep**
-  - `<id>`: <scope>. Outcome: <observable result>. Likely paths: <paths>. Depends on: none. Base: `<change id>`.
+  - `<id>` (<session | batch>): <scope>. Outcome: <observable result>. Likely paths: <paths>. Depends on: none. Base: `<change id>`.
 - **Wave <n+1>**
-  - `<id>`: <scope>. Outcome: <observable result>. Likely paths: <paths>. Depends on: <ids or parts>. Base: `<change id>`.
+  - `<id>` (<session | batch>): <scope>. Outcome: <observable result>. Likely paths: <paths>. Depends on: <ids or parts>. Base: `<change id>`.
 - **Later**
   - `<id>`: <scope>. Needs: <part of which strand>.
 

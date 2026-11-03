@@ -43,7 +43,7 @@ Then recheck this rev.
 
 Do the snapshot yourself. The subagent cannot see your context. Do not paste contents of the conflicted files into the prompt.
 
-Spawn a writer subagent (Claude Code `general-purpose`, OpenCode `general`, not `explore`). Omit `model` unless the user named one. Spawn fails -> stop and report.
+Spawn a `resolver` subagent (writer, Sonnet; missing profile -> Claude Code `general-purpose`, OpenCode `general`, not `explore`). Spawn fails -> stop and report.
 
 Pass only this (fill values):
 
@@ -56,6 +56,7 @@ Context:
 - Conflicted revision: <rev id>
 - Upstream (do not regress): <bookmark or rev>
 - Files: <paths>   (parallel split only, else omit)
+- Notes: <what the caller passed: hotspots, gotchas, intent per side>   (omit when none)
 ```
 
 One spawn per conflicted rev.
