@@ -1,12 +1,12 @@
 ---
 name: conduct
 description: Use when launching strands of work as parallel interactive agent sessions, or checking, merging, and shipping their waves. Not for planning the strands (see carve), one workspace (see workspace), or subagent batches (see with-implementer).
-argument-hint: "[<series or strand list> | status | merge]"
+argument-hint: "[<series or strand list> | status | merge | megamerge]"
 ---
 
 Run strands of work in parallel: one jj workspace, one herdr workspace, one interactive `claude` session per strand. Sessions, not subagents => each strand asks the user its own questions. This session coordinates.
 
-Mode from args: `status` -> Status. `merge` -> Merge. Anything else -> Split, then Launch.
+Mode from args: `status` -> Status. `merge` -> Merge. `megamerge` -> Megamerge. Anything else -> Split, then Launch.
 
 Strand = id, scope, dependencies, base revision, run mode. Id doubles as the herdr agent name => lowercase, `[a-z][a-z0-9_-]{0,31}`.
 
@@ -108,3 +108,25 @@ Proceed without asking up to and including the replan. Stops: a strand not finis
 - Ship the strands first: one PR per strand from its tip using `/nabu-ship` (`-r <tip>`, target: the merge target). A shared base above the merge target (Launch step 1) ships once, as the shared bottom of their stacks. Merge commit last (`-r`, same target), only once every strand PR is open => a pushed merge commit makes its parents immutable, and `nabu ship` rewrites the revision it ships.
 - Add the PR numbers to the wave's `Landed` line in the working copy. The pushed merge commit is immutable => they land with the next merge.
 - Offer Launch of the next wave on the merge commit. Never launch it without the user's go.
+
+## Megamerge
+
+Done = Merge's done-state, except: the merge commit also takes the push bookmark and every approved unmerged local head as parents, nothing ships as a PR, and the push bookmarks point at the merge commit on the remote.
+
+Run Merge with these changes:
+
+- Push bookmarks: the ones the user names (`qa`, `develop`). None named -> ask.
+- Merge target: the first push bookmark.
+- Candidates: every non-empty head outside it. Show each with id, description, date and workspace, and wait for the user's go. Stale or replaced by later work -> recommend abandoning it.
+
+  ```bash
+  # unmerged local work: non-empty heads not yet in the push bookmark
+  jj log -r 'heads(mutable() ~ empty() ~ ::<bookmark>)'
+  ```
+
+- A candidate that is another workspace's working copy: snapshot it (`jj -R <workspace> st`). Its session still edits it -> leave it out until the session stops => an edit snapshotted during the merge splits the merge commit into divergent copies.
+- Undescribed candidate -> describe it from its diff => jj refuses to push it.
+- Parents: the merge target, every finished strand tip, every approved candidate.
+- A tablet whose only open boxes are manual checks counts as finished.
+- Ship: no `/nabu-ship`. After the user's go, point every push bookmark at the merge commit and push: `jj bookmark set <bookmark> -r <merge commit>`, then `jj git push -b <bookmark>`.
+- After the push: list the non-empty heads still outside the push bookmark.
