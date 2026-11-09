@@ -6,7 +6,7 @@ argument-hint: "[goal or area] [max parallel sessions]"
 
 Write a series: the next work, split into waves of strands that separate agent sessions build in parallel, each in its own workspace. Save to the project root as `SERIES-<topic>.md`. Same-topic series exists -> update it: landed work leaves, Findings and the waves ahead are re-derived.
 
-The series holds only work ahead. A landed wave leaves with its strands and keeps one `Landed` line: number, merge commit, PRs. Its Decisions, Hotspots and Findings leave too unless a strand ahead still needs them => the series stays readable in one pass; version control keeps the rest. Wave numbers continue across updates: a new wave takes the next unused number.
+The series holds only work ahead. A landed wave leaves with its strands. Its Decisions, Hotspots, Findings and answered Open questions leave too unless a strand ahead still needs them => the series stays readable in one pass; version control keeps the rest. `Landed` keeps one line (number, merge commit, PRs) only for the latest wave (the next merge target, the highest wave number) and for waves whose PRs are still open. Wave numbers continue across updates: a new wave takes the next unused number.
 
 Done = the user approved a series where every strand could start today in its own workspace, every goal requirement maps to a strand or a decision, and strands in one wave mostly touch different files.
 
@@ -32,7 +32,7 @@ Strand = id, scope, observable outcome, likely paths, dependencies, base revisio
 
 ## Find the hotspots
 
-Hotspot = a file several strands will likely edit. Name each with the strands that edit it. Purpose: cut the waves and find prep strands. Add a note only when the resolution is project-specific (renumber migrations, one strand owns a shared signature). Keep both sides, regenerate a lockfile or generated file -> `/resolve` already covers it, no note.
+Hotspot = a file several strands of the waves ahead will likely edit. Name each with the strands that edit it. A lasting project rule (date formatting, logging, an append-only table) is no hotspot: it belongs where every session reads it (see conduct, Merge). Purpose: cut the waves and find prep strands. Add a note only when the resolution is project-specific (renumber migrations, one strand owns a shared signature). Keep both sides, regenerate a lockfile or generated file -> `/resolve` already covers it, no note.
 
 - Look for lists every feature extends: composition root, route mounting, closed unions, nav, schema, seed data, env config, dependency manifest and lockfile, generated files.
 - Look for the same list spelled out in many places (every test building the full deps object) => each new feature edits every other strand's files, and the break shows only after the merge. Fix it in a prep strand.
