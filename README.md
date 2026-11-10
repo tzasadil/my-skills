@@ -16,6 +16,7 @@ just check   # validate frontmatter, names, and links
 | Skill | Use |
 | --- | --- |
 | [angular-developer](skills/angular-developer/SKILL.md) | Use when generating Angular code or giving architectural guidance: projects, components, services, HTTP, reactivity (signals, linkedSignal, resource, httpResource), forms, DI, routing, SSR, accessibility (ARIA), animations, styling (component styles, Tailwind), testing, naming, or CLI tooling. |
+| [asking-question](skills/asking-question/SKILL.md) | Use when about to ask the user a question or offer a choice between options, inline or through AskUserQuestion. Makes each question stand alone for a reader who has not seen the code, audit, or reviewer output. |
 | [carve](skills/carve/SKILL.md) | Use when figuring out the next work and splitting it into waves of strands that separate sessions can build in parallel, or updating that series after a wave lands. |
 | [conduct](skills/conduct/SKILL.md) | Use when launching strands of work as parallel interactive agent sessions, or checking, merging, and shipping their waves. Not for planning the strands (see carve), one workspace (see workspace), or subagent batches (see with-implementer). |
 | [design-ui](skills/design-ui/SKILL.md) | Use when heavily restyling web components, pages, or applications. Create distinctive, production-grade interfaces with high design quality, not generic AI aesthetics. |
