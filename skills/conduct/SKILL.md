@@ -104,23 +104,15 @@ Gate = the repo's CI gate: static analysis plus the whole test suite. Run it onc
 
 ## Megamerge
 
-Done = Merge's done-state, except: the merge commit also takes the push bookmark and every approved unmerged local head as parents, nothing ships as a PR, and the push bookmarks point at the merge commit, or the revision on top of it, on the remote.
+Merge, with the unmerged local work as extra parents and a push instead of PRs.
 
-Run Merge with these changes:
-
-- Push bookmarks: the ones the user names (`qa`, `develop`). None named -> ask.
-- Merge target: the first push bookmark.
-- Candidates: every non-empty head outside it. Show each with id, description, date and workspace, and wait for the user's go. Stale or replaced by later work -> recommend abandoning it.
+- Push bookmarks: the ones the user names (`qa`, `develop`). None named -> ask. Merge target: the first.
+- Extra parents: each non-empty head outside the target that the user approves, under the same frozen-tips rule. Show id, description, date and workspace. Stale -> recommend abandoning it. Undescribed -> describe it from its diff => jj refuses to push it.
 
   ```bash
   # unmerged local work: non-empty heads not yet in the push bookmark
   jj log -r 'heads(mutable() ~ empty() ~ ::<bookmark>)'
   ```
 
-- A candidate that is another workspace's working copy: snapshot it (`jj -R <workspace> st`). Its session still edits it -> leave it out (frozen tips).
-- Undescribed candidate -> describe it from its diff => jj refuses to push it.
-- Parents: the merge target, every finished strand tip, every approved candidate.
 - A tablet whose only open boxes are manual checks counts as finished.
-- A push bookmark was already pushed onto the merge commit (the user did it) => the commit is immutable: later edits (series, archive) go in one revision on top.
-- Ship: no `/nabu-ship`. After the user's go, point every push bookmark at the merge commit, or at that revision on top, and push: `jj bookmark set <bookmark> -r <revision>`, then `jj git push -b <bookmark>`.
-- After the push: list the non-empty heads still outside the push bookmark.
+- Ship: no `/nabu-ship`. After the user's go, `jj bookmark set <bookmark> -r <merge commit>` and `jj git push -b <bookmark>` per bookmark, then list the heads still outside. A bookmark already pushed onto the merge commit => it is immutable: later edits (series, archive) go in one revision on top, and the bookmarks move there.
