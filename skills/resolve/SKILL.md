@@ -21,6 +21,7 @@ Walk the revision chain bottom up. Fix one conflicted revision at a time, earlie
 3. `jj edit <rev>`
 4. Pin the pre-resolve state: `jj op log -n 1 -T 'id.short()' --no-graph`. Remember the returned op id.
 5. `jj resolve --tool mergiraf`. One call merges every conflicted file it can by syntax tree (e.g. both sides added imports or functions). It leaves git diff3 markers (`<<<<<<<`, `|||||||` base, `=======`, `>>>>>>>`) where it cannot.
+   - `At most 2 sides are supported` => one file has 3+ sides and the whole call stopped. Run it per 2-sided file (`jj resolve --tool mergiraf <path>`). The 3+ sided files get resolved by hand.
 6. `jj resolve --list` — what remains.
 
 If nothing is conflicted, stop. If mergiraf cleared everything, go to Recheck.
@@ -35,6 +36,7 @@ If nothing is conflicted, stop. If mergiraf cleared everything, go to Recheck.
 - Read the conflicted files (or `jj file show` for each side). Remove markers (`<<<<<<<`, `|||||||`, `=======`, `>>>>>>>`, `%%%%%%%`, `+++++++`).
 - Auto-propagated conflicts: analyze this rev on its own. The later rev's old intent may no longer apply.
 - Generated / regenerable files (lockfiles, `pnpm-store`): regenerate (`just install` or the repo's install command).
+- Append list (every side added its own entries: a doc line per module, route list, seed block): keep every side's entries.
 - Upstream is the baseline. NEVER regress it. Layer the branch on top. Lint/typecheck/tests say a symbol is missing => upstream likely deleted it. Adapt. Do not restore.
 
 Then recheck this rev.
@@ -56,7 +58,7 @@ Context:
 - Conflicted revision: <rev id>
 - Upstream (do not regress): <bookmark or rev>
 - Files: <paths>   (parallel split only, else omit)
-- Notes: <what the caller passed: hotspots, gotchas, intent per side>   (omit when none)
+- Notes: <what the caller passed: merge notes, gotchas, intent per side>   (omit when none)
 ```
 
 One spawn per conflicted rev.
@@ -72,9 +74,9 @@ One spawn per conflicted rev.
    jj op diff --git --ignore-all-space --no-graph --from <pre_resolve_op_id>
    ```
 
-   Judge: coherent merge, no duplicated functions, half-applied refactors, stale names, or hand-merged lockfiles.
+   Judge: coherent merge, no duplicated functions, half-applied refactors, stale names, or hand-merged lockfiles. Diff too large to read in one pass -> `--stat`, then the hunks of the files its Gotchas name and of files outside the conflict list.
 3. **Upstream not regressed:** No restoration of what upstream deleted. No breaking of what upstream added.
-4. **Checks** — lint/typecheck on the whole project; tests on files that were conflicted this iteration.
+4. **Checks** — lint/typecheck on the whole project (the resolver reported them green -> done, no rerun); tests on files that were conflicted this iteration. The caller said its own gate runs next -> skip this step.
 
 Then loop: next earliest remaining conflicted rev, fresh snapshot.
 Conflicts that newly appear (=>auto-propagation) are in-session.

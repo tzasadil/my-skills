@@ -21,6 +21,7 @@ Other resolvers edit the same worktree at the same time.
 - Locate conflicted files with `jj st`. Open them and remove conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`, git diff3 `|||||||` base sections left by mergiraf, and jj's `%%%%%%%` / `+++++++` forms).
 - Auto-propagated conflicts from a parent: analyze this rev on its own. The descendant's old intent may no longer apply.
 - Generated / regenerable files (lockfiles, `pnpm-store`, etc.): regenerate (`just install` or the repo's install command).
+- Append list (every side added its own entries: a doc line per module, route list, seed block): keep every side's entries.
 
 ## Priority: upstream is the baseline
 
@@ -46,6 +47,7 @@ The orchestrator reads your edits from `jj op diff`. Report only what the diff c
 
 ```text
 Blockers: <none | conflicts left and why>
+Checks: <each command run, green or red>
 Branch intent dropped (and why): <none | list>
 Gotchas: <none | invariants relied on, anything the parent must recheck>
 ```

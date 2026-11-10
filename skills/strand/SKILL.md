@@ -3,7 +3,7 @@ name: strand
 description: Use when a coordinator's brief hands this session one strand of a parallel split to build in its own workspace.
 ---
 
-Build one strand of a parallel split. Other sessions build the sibling strands at the same time. The coordinator merges, finalizes, and ships the wave.
+Build one strand of a parallel split. Other sessions build the sibling strands at the same time. The coordinator merges, archives, and ships the wave.
 
 Inputs from the brief: strand id and scope, workspace path, base revision, series path. Missing input -> ask the user before you start.
 
@@ -13,8 +13,9 @@ Done = the strand's tablet is `ready to archive`, every revision on the base is 
 
 - Run `/nabu-inscribe` on the strand, then `/nabu-build` its tablet.
 - Too large for one reviewable PR -> switch to `/nabu-outline` without asking, and tell it the slicing is pre-approved.
-- The series is the shared plan: its strand entry, Hotspots, Shared runtime, and Decisions apply to this strand.
+- The series is the shared plan: its strand entry, wave header, Shared runtime, and Decisions apply to this strand.
 - Make the coherent change the scope needs, in any file. Sibling strands may edit the same files => conflicts get resolved at merge.
+- A check a subagent reported green is done. Rerun it only when the diff contradicts the report or an edit landed after it.
 
 ## Revisions
 
@@ -28,6 +29,6 @@ Done = the strand's tablet is `ready to archive`, every revision on the base is 
 
 ## Finish
 
-- Stop when the build is reviewed and the tablet is `ready to archive`. Leave `/nabu-finalize`, `/nabu-ship`, and archiving to the coordinator.
+- Stop when the build is reviewed and the tablet is `ready to archive`. Leave archiving and `/nabu-ship` to the coordinator.
 - Report: what the strand built, the checks that ran, what is unverified, and merge risks with sibling strands (files or rules they likely share).
 - A coordinator report (merge gate failure, review note) -> fix it as above, rerun the checks it names, and reply when it has landed.
