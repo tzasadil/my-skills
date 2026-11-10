@@ -72,7 +72,7 @@ Done = one row per strand: revisions on top of its base, last description, sessi
 
 Done = one merge commit on the merge target, its parents every strand tip of the wave, conflicts resolved, the gate green on it, the wave's tablets archived and the current series in it. Strand revisions untouched, strand workspaces and sessions closed. Each strand and the merge commit shipped. Next wave offered, not launched.
 
-Proceed without asking up to and including the replan. Stops: a strand not finished, a strand-owned failure (sent to its session), a question /nabu-archive asks, and /nabu-ship's approval.
+Proceed without asking up to and including the replan. A plan or wave the user approved is not asked again. Stops: a strand not finished, a strand-owned failure (sent to its session), a question /nabu-archive asks, and /nabu-ship's approval.
 
 Gate = the repo's CI gate: static analysis plus the whole test suite, one command when the repo has one. It runs once on the merge commit, and this session runs no narrower check before it. Red -> rerun only the failing check while the fix lands, then the gate once. A check a subagent reported green on the current revision is done: rerun it only when the diff contradicts the report.
 

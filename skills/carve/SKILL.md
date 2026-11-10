@@ -50,7 +50,7 @@ Spawn `opponent` for the critique (`debugging-duck` when that profile is missing
 
 - `empty` = clean.
 - Resolve every finding with a fix, evidence-backed pushback, or a user decision.
-- Re-present changed waves to the user.
+- Re-present changed waves to the user, with the Open questions in the same call.
 
 ## Doc
 
