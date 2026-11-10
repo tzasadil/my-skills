@@ -1,6 +1,6 @@
 ---
 name: design-ui
-description: Use when heavily restyling web components, pages, or applications. Create distinctive, production-grade interfaces with high design quality, not generic AI aesthetics.
+description: Use when heavily restyling web components, pages, or applications. Create distinctive, production-grade interfaces with high design quality, not generic AI aesthetics. Not for routine UI edits (see editing-ui).
 ---
 
 # Innovative UX Designer
@@ -9,12 +9,17 @@ Distinctive production UI. Bold direction, not generic AI aesthetics.
 
 ## Before code
 
-Ask, then commit to one extreme. No half measures.
+Ambition follows the surface:
+
+- **Marketing page** (landing, campaign, pricing): commit to one extreme. No half measures.
+- **App screen** (dashboard, admin, settings, form, tool): precision and restraint. The project's tokens, components, and familiar patterns win. Boldness lives in spacing, type, and states. The lists of tones and defaults below yield to the existing system.
+
+Ask:
 
 1. **Purpose.** What problem? Who uses it?
-2. **Tone.** Pick an extreme below.
+2. **Tone.** Marketing page -> pick an extreme below. App screen -> the project's existing one.
 3. **Constraints.** Framework, performance, a11y.
-4. **Differentiation.** What makes it unforgettable?
+4. **Differentiation.** Marketing page -> what makes it unforgettable? App screen -> what makes the task faster?
 
 Present 2–3 approaches with trade-offs, then implement.
 
@@ -31,7 +36,7 @@ Compact, then build:
 
 Spend boldness in one place. Quiet everything else. Quality floor without announcing it: responsive to mobile.
 
-If the brief does not pin the subject, pin it: one concrete subject, audience, the page's single job. Distinctive choices come from that world's materials, instruments, artifacts, vernacular. Use the brief's real content.
+If the brief does not pin the subject, pin it: one concrete subject, audience, the page's single job. Distinctive choices come from that world's materials, instruments, artifacts, vernacular. Use the brief's real content. Never invent a metric, testimonial, logo wall, or customer count: not supplied -> leave it out.
 
 ## Direction
 
@@ -49,11 +54,13 @@ If the brief does not pin the subject, pin it: one concrete subject, audience, t
 
 **Colors:** generic SaaS blue (`#3B82F6`), purple gradients on white.
 
-**Effects:** glass morphism, Apple mimicry, liquid/blob backgrounds.
+**Effects:** glass morphism, Apple mimicry, liquid/blob backgrounds, gradient text.
 
-**Layouts:** cookie-cutter component grids, equal generous padding, shadow-as-hierarchy, `rounded-2xl` on everything.
+**Layouts:** cookie-cutter component grids, card inside a card, equal generous padding, shadow-as-hierarchy, `rounded-2xl` on everything.
 
-Atmosphere over flat fills: photography, patterns, textures, gradient meshes, noise, geometric pattern, layered transparency, dramatic shadow, decorative border. Custom cursors, grain, contextual effects when they serve the brief.
+**Details:** eyebrow label above every heading, one italic word inside a roman heading, monospace as a "technical" costume (mono is for code and data), emoji as icons.
+
+Atmosphere comes from the subject's world, not a generic overlay: photography, pattern, texture, layered transparency, dramatic shadow. Grain, noise, gradient meshes, grid overlays, custom cursors -> only when the subject calls for them.
 
 AI clusters around three looks — legitimate for some briefs, not the free-axis default:
 
@@ -75,7 +82,7 @@ Two roles:
 - Background = lightest neutral. Primary text = darkest. Secondary = mid-tone.
 - Primary button: accent + white text. Secondary: neutral + border + dark text.
 - Hover darken 10–15%. Focus ring in accent. Disabled 40–50% opacity.
-- Unexpected neutrals: warm grey, soft off-white, deep charcoal. Sharp accents: terracotta+charcoal, sage+navy, coral+slate. Dominant + sharp beats timid.
+- Unexpected neutrals: warm grey, deep charcoal. Sharp accents: sage+navy, coral+slate. Dominant + sharp beats timid.
 
 ## Type
 
@@ -149,6 +156,8 @@ Optimistic update: paint immediately, rollback on error.
 ## Implement
 
 - Prefer shadcn v4 (`@/components/ui`). Tailwind utilities only. `@phosphor-icons/react`. `sonner` for toasts. Loading states always.
+- Restyle changes class values and styles only. Conditionals, handlers, `key`, `ref`, `id`, `aria-*`, `data-*` stay.
+- Browser tool available -> look at the render at shipping sizes (mobile, desktop) before reporting done. One batched look, one fix batch.
 
 ```
 src/components/
