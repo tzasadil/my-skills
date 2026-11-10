@@ -63,7 +63,7 @@ Context:
 
 One spawn per conflicted rev.
 
-**Parallel split (same rev only):** 8+ remaining files that fall into independent groups => one resolver per group, all spawned in one message. Add `Files: <paths>` to each prompt. Group by cause, not directory: files tied to one upstream refactor or sharing a symbol go to the same agent. Unsure whether groups are independent => one spawn. Never parallelize across revs: fixing an earlier rev rewrites later conflicts. Run Recheck once, after all agents return.
+**Parallel split (same rev only):** 8+ remaining files in independent groups => one resolver per group, all spawned in one message, each with `Files: <paths>`. Group by cause, not directory: files tied to one upstream refactor or sharing a symbol go together. Unsure -> one spawn. Never across revs: fixing an earlier rev rewrites later conflicts. Recheck once, after all agents return.
 
 ### Recheck (this rev)
 
@@ -78,10 +78,9 @@ One spawn per conflicted rev.
 3. **Upstream not regressed:** No restoration of what upstream deleted. No breaking of what upstream added.
 4. **Checks** — lint/typecheck on the whole project (the resolver reported them green -> done, no rerun); tests on files that were conflicted this iteration. The caller said its own gate runs next -> skip this step.
 
-Then loop: next earliest remaining conflicted rev, fresh snapshot.
-Conflicts that newly appear (=>auto-propagation) are in-session.
+Conflicts that newly appear (=> auto-propagation) are in-session.
 
 ## Rules
 
 - Subagent merge fails -> retry once. Still wrong -> Fix yourself.
-- If you notice significant wiring outside of conflicts is required to maintain behaviour of both upstream and local changes, then raise that with the user. It is to be considered blocking.
+- Keeping both sides' behaviour needs significant wiring outside the conflicts -> blocking: raise it with the user.

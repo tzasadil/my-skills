@@ -29,8 +29,6 @@ Upstream (main, develop, or the rev you were rebased onto) is the source of trut
 
 - Lint/typecheck/tests say a func/class/API is missing after the rebase => upstream almost certainly deleted it. Do not restore it. Adapt the branch to the new upstream.
 - Both sides changed the same line: prefer upstream if it refactored or fixed; keep the branch only when it adds genuine new logic upstream does not have.
-- Branch added, upstream unchanged: keep the branch.
-- Upstream added, branch unchanged: keep upstream.
 - Both added different things in the same area: keep both if they do different jobs; if they overlap, keep upstream and check the branch's intent is still met elsewhere.
 - Imports: deduplicate. Do not resurrect an import whose symbol upstream removed.
 - Never silently drop branch-only behavior. If you must drop it because upstream made it impossible, say so in your return report.
