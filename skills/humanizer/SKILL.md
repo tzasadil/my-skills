@@ -1,6 +1,6 @@
 ---
 name: humanizer
-description: Use when drafting or revising a document, ticket, or PR description for a human team, or when the user asks to humanize text. Not for chat replies or agent instructions (see writing-skills).
+description: Use when drafting or revising a document, ticket, or PR description for a human team, or a message to a customer (e-mail). Not for chat replies or agent instructions (see writing-skills).
 version: 3.0.0
 ---
 
@@ -56,6 +56,7 @@ Each costs the reader time or trust. Watch-list, then the rewrite direction.
 24. **Authority tropes.** The real question is, at its core, in reality, what really matters, fundamentally, the deeper issue. Just make the point.
 25. **Signposting.** Let's dive in, let's explore, here's what you need to know. Do the thing.
 26. **Fragmented headers.** Heading then a one-line restatement. Delete the restatement.
+27. **Forced translation.** Czech text: a thing with only an English name stays English (pull request, commit, endpoint, token, backend). No invented Czech equivalent (žádost o přetažení, koncový bod, žeton). Czech endings are fine (commitu, endpointy).
 
 ## Process
 
